@@ -2,18 +2,13 @@
 
 namespace VrGrabber
 {
-    public class Device {
-        static IDevice _instance;
-        public static IDevice instance {
+    public class Device
+    {
+        static VrgSteamVRContorollerDevice _instance;
+        public static VrgSteamVRContorollerDevice instance {
             get {
                 if (_instance == null) {
-#if !UNITY_WSA
-                    _instance = new VrgOculusTouchDevice();
-#elif UNITY_WSA
-                    _instance = new VrgWinMRMotionControllerDevice();
-#else
-#error "Not implemented."
-#endif
+                    _instance = new VrgSteamVRContorollerDevice();
                 }
                 return _instance;
             }

@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.Assertions;
 using System.Collections.Generic;
+using Valve.VR;
 
 namespace VrGrabber
 {
@@ -27,20 +28,22 @@ public class VrgGrabber : MonoBehaviour
         get { return side == ControllerSide.Right; }
     }
 
-    [SerializeField]
-    Transform grip = null;
+    [SerializeField] private Transform grip = null;
 
-    [SerializeField]
-    VrgTargetLine line;
+    [SerializeField] private VrgTargetLine line;
 
-    [SerializeField]
-    float maxGrabDistance = 10f;
+    [SerializeField] private float maxGrabDistance = 10f;
 
-    [SerializeField]
-    float stickMoveSpeed = 0.1f;
+    [SerializeField] private float stickMoveSpeed = 0.1f;
 
-    [SerializeField]
-    LayerMask layerMask = ~0;
+    [SerializeField] private LayerMask layerMask = ~0;
+
+    [SerializeField] private SteamVR_ActionSet actionSet;
+    [SerializeField] private SteamVR_Action_Pose actionPose;
+    [SerializeField] private SteamVR_Action_Boolean click;
+    [SerializeField] private SteamVR_Action_Vector2 coord;
+    [SerializeField] private SteamVR_Action_Single hold;
+    [SerializeField] private SteamVR_Action_Boolean hover;
 
     public class TargetClickEvent : UnityEvent<VrgGrabber, RaycastHit> {}
     public TargetClickEvent onTargetClicked = new TargetClickEvent();
@@ -188,6 +191,17 @@ public class VrgGrabber : MonoBehaviour
 
             return grabInfo_.id < opposite.grabInfo_.id;
         }
+    }
+
+    void OnEnable()
+    {
+        SteamVR.Initialize();
+        actionSet.Activate();
+        Device.instance.actionPose = actionPose;
+        Device.instance.Click = click;
+        Device.instance.Coord = coord;
+        Device.instance.Hold = hold;
+        Device.instance.Hover = hover;
     }
 
     void Update()
