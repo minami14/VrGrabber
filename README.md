@@ -11,7 +11,7 @@ VrGrabber
 ![VrGrabber Image 2](https://raw.githubusercontent.com/wiki/hecomi/VrGrabber/grabber2.PNG)
 ![VrGrabber Image 3](https://raw.githubusercontent.com/wiki/hecomi/VrGrabber/grabber3.PNG)
 
--   Currently only Oculus SDK is supported (OpenVR will be supported soon).
+-   Currently only SteamVR Plugin is supported.
 
 Demo
 ----
